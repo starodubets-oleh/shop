@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
 import BtnPay from '../Buttons/BtnPay';
 
-import {totalPrice} from '../../redux/selectors';
+import { totalPrice } from '../../redux/selectors';
+
+import {reEmail, rePhone} from '../../utils/regExp'
 
 const shippingOptions = [
-  {name:'Free shipping', price: ''},
-  {name: 'Express shipping- additional', price: '9.99 €'},
-  {name: 'Courier shipping - additional', price: '19.99 €'}
+  { name: 'Free shipping', price: '' },
+  { name: 'Express shipping- additional', price: '9.99 €' },
+  { name: 'Courier shipping - additional', price: '19.99 €' }
 ];
-
-const reEmail = /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/;
-const rePhone = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
 const ShippingSettings = () => {
 
@@ -25,26 +24,26 @@ const ShippingSettings = () => {
     shouldFocusError: true
   });
 
-  const [ shippingList, setShippingList ] = useState(shippingOptions);
-  const [ shippingSelected, setShippingSelected ] = useState(shippingList[0]);
-  const [ shippingData, setShippingData ] = useState({});
+  const [shippingList, setShippingList] = useState(shippingOptions);
+  const [shippingSelected, setShippingSelected] = useState(shippingList[0]);
+  const [shippingData, setShippingData] = useState({});
 
-  const onSubmitForm = (data) => {
+  const onSubmitForm = useCallback((data) => {
     setShippingData({
       ...data,
       shipping: shippingSelected
     });
-  };
+  }, [shippingSelected])
 
-  const handleChangeShipping = ({ target: { value } }) => {
+  const handleChangeShipping = useCallback(({ target: { value } }) => {
     setShippingSelected(value);
-  };
+  })
 
   useEffect(() => {
     if (price > 300) {
-      setShippingSelected({name: 'Free express shipping', price: ''})
+      setShippingSelected({ name: 'Free express shipping', price: '' })
       setShippingList(
-        [{name: 'Free express shipping', price: ''}, ...shippingOptions]
+        [{ name: 'Free express shipping', price: '' }, ...shippingOptions]
       )
     } else {
       setShippingList(shippingOptions)
