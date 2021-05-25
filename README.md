@@ -1,2 +1,5 @@
 # shop
-Нou need to open the folder sever and run next comands:
+You need to open the folder sever and run next comands:
+```npm install```
+then
+```npm start```
