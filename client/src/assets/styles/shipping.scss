@@ -1,0 +1,52 @@
+.shipping-box{
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shipping-card{
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  gap: 1rem;
+  label, .shipping-select{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  input{
+    outline: unset;
+  }
+  label{
+    span{
+      position: absolute;
+      font-weight: normal;
+      font-size: 0.7rem;
+      color: red;
+      right: 0;
+      bottom: -70%;
+    }
+  }
+  select{
+    display: inline;
+    width: 177px;
+  }
+}
+
+.is-valid{
+  border: 2px solid red;
+}
+
+.btn-pay{
+  text-align: end;
+  button{
+    padding: .5rem 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
